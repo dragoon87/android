@@ -10,6 +10,7 @@ import com.mapzen.model.ValhallaLocation;
 import com.mapzen.tangram.LngLat;
 import com.mapzen.tangram.TouchInput;
 import com.mapzen.valhalla.Route;
+import com.mapzen.valhalla.Route2;
 import com.mapzen.valhalla.RouteCallback;
 
 import android.graphics.PointF;
@@ -30,6 +31,7 @@ public class RouterActivity extends BaseDemoActivity {
   MapzenMap map;
   MapzenRouter router;
   int points = 0;
+  ArrayList<LngLat> pointList = new ArrayList();
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -52,7 +54,8 @@ public class RouterActivity extends BaseDemoActivity {
     map.setPersistMapData(true);
     map.setMyLocationEnabled(true);
     map.setZoom(15f);
-    map.setPosition(new LngLat(-73.9918, 40.73633));
+    //map.setPosition(new LngLat(-73.9918, 40.73633));
+    map.setPosition(new LngLat(114.400190, 30.502976));
     map.setTapResponder(new TouchInput.TapResponder() {
       @Override public boolean onSingleTapUp(float x, float y) {
         LngLat point = map.screenPositionToLngLat(new PointF(x, y));
@@ -75,6 +78,7 @@ public class RouterActivity extends BaseDemoActivity {
         map.removePolyline();
         map.removeMarker();
         points = 0;
+        pointList.clear();
       }
     });
 
@@ -91,14 +95,27 @@ public class RouterActivity extends BaseDemoActivity {
 
   }
 
+  double LOCATION_FUZZY_EQUAL_THRESHOLD_DEGREES = 0.00001;
+  private Boolean fuzzyEqual(LngLat l1, LngLat l2) {
+    double deltaLat = Math.abs(l1.latitude - l2.latitude);
+    double deltaLng = Math.abs(l1.longitude - l2.longitude);
+    return (deltaLat <= LOCATION_FUZZY_EQUAL_THRESHOLD_DEGREES)
+            && (deltaLng <= LOCATION_FUZZY_EQUAL_THRESHOLD_DEGREES);
+  }
+
   private void configureRouter() {
-    router.setWalking();
+    //router.setWalking();
+    router.setDriving();
     router.setCallback(new RouteCallback() {
-      @Override public void success(Route route) {
+      @Override public void success(Route2 route) {
         List<LngLat> coordinates = new ArrayList<>();
         for (ValhallaLocation location : route.getGeometry()) {
             coordinates.add(new LngLat(location.getLongitude(), location.getLatitude()));
         }
+        if (!fuzzyEqual(coordinates.get(0), pointList.get(0)))
+          coordinates.add(0, pointList.get(0));
+        if (!fuzzyEqual(coordinates.get(coordinates.size() - 1), pointList.get(pointList.size() - 1)))
+          coordinates.add(pointList.get(pointList.size() - 1));
         Polyline polyline = new Polyline(coordinates);
         map.addPolyline(polyline);
       }
@@ -110,6 +127,7 @@ public class RouterActivity extends BaseDemoActivity {
   }
 
   private void addPointToRoute(LngLat lngLat) {
+    pointList.add(lngLat);
     double[] point = {lngLat.latitude, lngLat.longitude};
     router.setLocation(point);
     Marker marker = new Marker(lngLat.longitude, lngLat.latitude);

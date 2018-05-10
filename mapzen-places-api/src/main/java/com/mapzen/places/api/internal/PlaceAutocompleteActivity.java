@@ -1,5 +1,6 @@
 package com.mapzen.places.api.internal;
 
+import com.mapzen.android.core.MapzenManager;
 import com.mapzen.android.lost.api.LostApiClient;
 import com.mapzen.android.lost.api.Status;
 import com.mapzen.android.search.MapzenSearch;
@@ -149,7 +150,7 @@ public class PlaceAutocompleteActivity extends AppCompatActivity
 
       //TODO: filter only by wof (but discuss first bc it seriously limits # of results)
       @Override public String getSources() {
-        return "wof,osm,oa,gn";
+        return "wof,osm,oa,gn,dx,dx-wuhan-address";
       }
     });
     if (getIntent().getExtras() != null) {

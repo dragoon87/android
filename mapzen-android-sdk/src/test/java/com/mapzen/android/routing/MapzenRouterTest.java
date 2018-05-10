@@ -2,6 +2,7 @@ package com.mapzen.android.routing;
 
 import com.mapzen.android.core.MapzenManager;
 import com.mapzen.valhalla.Route;
+import com.mapzen.valhalla.Route2;
 import com.mapzen.valhalla.RouteCallback;
 import com.mapzen.valhalla.Router;
 import com.mapzen.valhalla.ValhallaRouter;
@@ -108,7 +109,7 @@ public class MapzenRouterTest {
 
   class TestRouteCallback implements RouteCallback {
 
-    @Override public void success(Route route) {
+    @Override public void success(Route2 route) {
     }
 
     @Override public void failure(int i) {

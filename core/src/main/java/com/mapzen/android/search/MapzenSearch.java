@@ -1,6 +1,7 @@
 package com.mapzen.android.search;
 
 import com.mapzen.android.core.CoreDI;
+import com.mapzen.android.core.MapzenManager;
 import com.mapzen.pelias.BoundingBox;
 import com.mapzen.pelias.Pelias;
 import com.mapzen.pelias.PeliasLocationProvider;
@@ -26,7 +27,11 @@ public class MapzenSearch {
    */
   public MapzenSearch(Context context) {
     initDI(context);
-    internalSearch = new Pelias();
+    String host = MapzenManager.instance(context).getSearchHost();
+    if (host == null || host.isEmpty())
+      internalSearch = new Pelias();
+    else
+      internalSearch = new Pelias(host);
     searchInitializer.initSearch(this);
   }
 

@@ -50,6 +50,12 @@ android {
   lintOptions {
     abortOnError false
   }
+
+  repositories {
+    flatDir {
+      dirs 'libs'
+    }
+  }
 }
 
 task checkstyle(type: Checkstyle) {
@@ -79,7 +85,9 @@ assemble.doFirst {
 dependencies {
   compile 'com.android.support:appcompat-v7:25.1.0'
 
-  compile "com.mapzen.tangram:tangram:$tangram_version"
+  compile project(':tangram-debug')
+  //compile(name:'tangram-debug', ext:'aar')
+  //compile "com.mapzen.tangram:tangram:$tangram_version"
   compile 'com.mapzen.android:pelias-android-sdk:1.2.0'
   compile 'com.mapzen.android:lost:3.0.0'
 

@@ -1,5 +1,6 @@
 package com.mapzen.android.sdk.sample;
 
+import com.mapzen.android.core.MapzenManager;
 import com.mapzen.android.graphics.MapView;
 import com.mapzen.android.graphics.MapzenMap;
 import com.mapzen.android.graphics.MapzenMapPeliasLocationProvider;

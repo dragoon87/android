@@ -16,15 +16,17 @@ public class RouterInitializer {
    * @param context
    */
   public RouterInitializer(Context context) {
-    requestHandler = new MapzenRouterHttpHandler(context) {
-      @Override public Map<String, String> queryParamsForRequest() {
-        return null;
-      }
+      requestHandler = new MapzenRouterHttpHandler(context) {
+        @Override
+        public Map<String, String> queryParamsForRequest() {
+          return null;
+        }
 
-      @Override public Map<String, String> headersForRequest() {
-        return null;
-      }
-    };
+        @Override
+        public Map<String, String> headersForRequest() {
+          return null;
+        }
+      };
   }
 
   /**

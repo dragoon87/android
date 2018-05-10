@@ -3,6 +3,7 @@ package com.mapzen.android.sdk.sample;
 import com.mapzen.android.graphics.MapFragment;
 import com.mapzen.android.graphics.MapzenMap;
 import com.mapzen.android.graphics.OnMapReadyCallback;
+import com.mapzen.tangram.LngLat;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -78,6 +79,9 @@ public class BasicMapzenActivity extends BaseDemoActivity
     map.setCompassButtonEnabled(true);
     map.setZoomButtonsEnabled(true);
     map.setPersistMapState(true);
+
+    map.setPosition(new LngLat(114.39383, 30.50531));
+    map.setZoom(21);
   }
 
   @Override protected void onPause() {

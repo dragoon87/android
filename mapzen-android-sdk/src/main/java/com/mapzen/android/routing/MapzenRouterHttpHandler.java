@@ -28,7 +28,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
  */
 public abstract class MapzenRouterHttpHandler implements GenericHttpHandler {
 
-  public static final String DEFAULT_URL = "https://valhalla.mapzen.com/";
+  //public static final String DEFAULT_URL = "https://valhalla.mapzen.com/";
+  public static final String DEFAULT_URL = "http://192.168.99.67:81/";
   public static final LogLevel DEFAULT_LOG_LEVEL = MapzenRouterHttpHandler.getDefaultLogLevel();
   private TurnByTurnHttpHandler handler;
   ChainProceder chainProceder = new ChainProceder();
@@ -42,14 +43,22 @@ public abstract class MapzenRouterHttpHandler implements GenericHttpHandler {
   /**
    * Construct handler with default url and log levels.
    */
+
   public MapzenRouterHttpHandler(Context context) {
     this(context, DEFAULT_URL, DEFAULT_LOG_LEVEL);
+  }
+
+  public MapzenRouterHttpHandler(Context context, String url) {
+    this(context, url, DEFAULT_LOG_LEVEL);
   }
 
   /**
    * Construct handler with custom url and log levels.
    */
   public MapzenRouterHttpHandler(Context context, String url, LogLevel logLevel) {
+    String host = MapzenManager.instance(context).getRouterHost();
+    if (host != null && !host.isEmpty())
+      url = host;
     handler = new TurnByTurnHttpHandler(url, logLevel);
     MapzenManager mapzenManager = MapzenManager.instance(context);
     mapzenManager.addApiKeyChangeListener(apiKeyChangeListener);

@@ -1,4 +1,4 @@
-include ':mapzen-android-sdk'
+include ':mapzen-android-sdk', ':tangram-debug'
 include ':core'
 include ':mapzen-places-api'
 include ':samples_mapzen-android-sdk-sample'

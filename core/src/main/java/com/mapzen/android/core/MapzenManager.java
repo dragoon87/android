@@ -52,6 +52,8 @@ public class MapzenManager {
   }
 
   private String apiKey;
+  private String routerHost;
+  private String searchHost;
 
   /**
    * Creates a new instance of the manager.
@@ -64,7 +66,17 @@ public class MapzenManager {
       if (id > 0) {
         apiKey = resources.getString(id);
       }
+      routerHost = resources.getString(resources.getIdentifier("router_host", "string", context.getPackageName()));
+      searchHost = resources.getString(resources.getIdentifier("search_host", "string", context.getPackageName()));
     }
+  }
+
+  public String getRouterHost() {
+    return routerHost;
+  }
+
+  public String getSearchHost() {
+    return searchHost;
   }
 
   /**
@@ -74,10 +86,10 @@ public class MapzenManager {
    * resource.
    */
   public String getApiKey() {
-    if (apiKey == null || API_KEY_DEFAULT_VALUE.equals(apiKey)) {
+    /*if (apiKey == null || API_KEY_DEFAULT_VALUE.equals(apiKey)) {
       throw new IllegalStateException("A valid Mapzen API key has not been provided. Please visit "
           + "https://mapzen.com/documentation/android/getting-started/ to learn how.");
-    }
+    }*/
 
     return apiKey;
   }

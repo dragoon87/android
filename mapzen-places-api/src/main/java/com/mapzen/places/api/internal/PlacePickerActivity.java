@@ -1,5 +1,6 @@
 package com.mapzen.places.api.internal;
 
+import com.mapzen.android.core.MapzenManager;
 import com.mapzen.android.graphics.LabelPickListener;
 import com.mapzen.android.graphics.MapView;
 import com.mapzen.android.graphics.MapzenMap;

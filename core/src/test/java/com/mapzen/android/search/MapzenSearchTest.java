@@ -39,7 +39,7 @@ public class MapzenSearchTest {
 
   @Test public void shouldCreatePelias() {
     MapzenManager.instance(context).setApiKey("fake-mapzen-api-key");
-    MapzenSearch mzSearch = new MapzenSearch(context);
+    MapzenSearch mzSearch = new MapzenSearch(context, "");
     assertThat(mzSearch.getPelias()).isNotNull();
     assertThat(mzSearch.searchInitializer.getRequestHandler().searchHandler().getApiKey())
         .isEqualTo("fake-mapzen-api-key");

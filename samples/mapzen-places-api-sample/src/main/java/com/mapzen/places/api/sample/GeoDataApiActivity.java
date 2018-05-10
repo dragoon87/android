@@ -54,8 +54,10 @@ public class GeoDataApiActivity extends AppCompatActivity {
 
   private void queryAutocompleteApi() {
     String query = "pizza";
-    LatLng pointA = new LatLng(40.020451, -105.274679);
-    LatLng pointB = new LatLng(40.012004, -105.289957);
+    //LatLng pointA = new LatLng(40.020451, -105.274679);
+    //LatLng pointB = new LatLng(40.012004, -105.289957);
+    LatLng pointA = new LatLng(31.3527, 115.082);
+    LatLng pointB = new LatLng(29.9766, 113.704);
     LatLngBounds bounds = new LatLngBounds.Builder().include(pointA).include(pointB).build();
     PendingResult<AutocompletePredictionBuffer> result =
         Places.GeoDataApi.getAutocompletePredictions(client, query, bounds, null);
